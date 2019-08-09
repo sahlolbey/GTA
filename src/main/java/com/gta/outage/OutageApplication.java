@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.gta.outage;
 
 import org.springframework.boot.SpringApplication;
