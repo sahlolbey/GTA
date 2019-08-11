@@ -100,7 +100,9 @@ class Signup extends React.Component {
     formData.append('email', email);
     formData.append('name', name);
 
-    axios.post("api/addSubscriber", formData)
+
+    axios.post("api/addSubscriber", this.formDataToJson(formData),
+        {headers: {"content-type": "application/json;"}})
         .then(response => {
               console.log(response);
               this.props.history.push("/result");
@@ -112,6 +114,14 @@ class Signup extends React.Component {
     )
 
     ;
+  }
+
+  formDataToJson(formData) {
+    var object = {};
+    formData.forEach((value, key) => {
+      object[key] = value
+    });
+    return JSON.stringify(object);
   }
 }
 
