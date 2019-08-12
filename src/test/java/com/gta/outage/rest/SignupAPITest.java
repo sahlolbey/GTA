@@ -4,6 +4,8 @@ import com.gta.outage.model.Subscriber;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @WebAppConfiguration
 public class SignupAPITest extends AbstractRestTest {
-
+    private static final Logger logger = LoggerFactory.getLogger(SignupAPITest.class);
     @Override
     @Before
     public void setUp() {
@@ -26,22 +28,23 @@ public class SignupAPITest extends AbstractRestTest {
 
     @Test
     public void addSubscriber() throws Exception {
-        String uri = "/addSubscriber";
+        String uri = "/api/addSubscriber";
         Subscriber subscriber = new Subscriber();
         subscriber.setName("Hamid");
         subscriber.setEmail("sahlolbey@gmail.com");
 
         String inputJson = super.mapToJson(subscriber);
-        System.out.println("inputJson=" + inputJson);
+        logger.info("inputJson=" + inputJson);
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 
-        System.out.println(mvcResult.getResponse().getContentAsString());
+        logger.info(mvcResult.getResponse().getContentAsString());
         int status = mvcResult.getResponse().getStatus();
 
         System.out.println("status=" + status);
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
+
         assertEquals(content, "successfully created");
     }
 }
