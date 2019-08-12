@@ -1,0 +1,19 @@
+.center {
+    margin: auto;
+}
+
+.signup {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+.result {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+body {
+    background: darkgrey;
+}
