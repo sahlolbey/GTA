@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.gta</groupId>
     <artifactId>outage</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>outage</name>
     <description>Demo project for GTA</description>
 
@@ -40,6 +40,24 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-devtools</artifactId>
+             <optional>true</optional>
+         </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
     </dependencies>
 
@@ -81,10 +99,75 @@
                         <goals>
                             <goal>webpack</goal>
                         </goals>
-                        <!-- <configuration>
-                             <arguments>&#45;&#45;watch</arguments>
-                             <arguments>-d</arguments>
-                         </configuration>-->
+                        <!--<configuration>
+                            <arguments>&#45;&#45;watch</arguments>
+                        </configuration>-->
+                    </execution>
+
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- ( 1 ) plugin info -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+
+                <!-- ( 2 ) jdbc dirver -->
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>6.0.6</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost:3306/</url>
+                    <username>root</username>
+                    <password>1234</password>
+                </configuration>
+
+                <!-- ( 4 ) phase, goal & SQL (command or file) -->
+                <executions>
+                    <execution>
+                        <id>create-db</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <sqlCommand>create database if not exists
+                            gta_sample;</sqlCommand>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-user</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <sqlCommand>
+                            DROP USER 'gta'@'localhost';
+                            create user 'gta'@'localhost'
+                            identified by 'mypass@123';</sqlCommand>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>grant-user</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <sqlCommand>grant all on gta_sample.* to
+                            'gta'@'localhost';</sqlCommand>
+                        </configuration>
                     </execution>
 
                 </executions>
