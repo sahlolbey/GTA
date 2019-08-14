@@ -1,22 +1,17 @@
 package com.gta.outage.model;
 
-public class Subscriber {
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public @Data
+class Subscriber {
+
+
     private String name;
+    @Id
     private String email;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
