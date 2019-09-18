@@ -15,7 +15,7 @@ service is unavailable, it should send an alert to allusers who have signed up.
     6- Spring scheduling
     
 # Installing Mysql Database
-  Download and install version 5.6+. Remember to write down mysql root user password.
+  Download and install version 5.6. Remember to write down mysql root user password.
   
   Open "pom.xml" file from project directory and search for "root". you find it in a xml code snipet like below. 
   Change the password to what you entered as mysql root password.
