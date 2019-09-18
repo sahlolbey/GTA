@@ -1,3 +1,6 @@
+# Purpose
+This is a demo project to present my skill in Java & Reactjs Full Stack development.
+
 # Project Definition
 Setup a Java Spring project with a dependency on another service (could be a database, a JMS queue,another public 
 API, etc...). From there, create an endpoint where users can sign up for alerts about service outages. That signup will 
